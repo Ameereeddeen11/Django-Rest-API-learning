@@ -43,22 +43,21 @@
                 <div id="form-wrapper">
                     <form id="form">
                         <div class="flex-wrapper">
-                            <div style="flex: 6">
-                                <input class="form-control" id="title" name="title" placeholder="Add task" type="text">
-                            </div>
-                            <div style="flex:6">
-                                <input type="submit" id="submit">
-                            </div>
+                            <div class="input-group">
+                                <input type="search" class="form-control rounded" placeholder="Add task" aria-label="Search" aria-describedby="search-addon" id="title"/>
+                                <button type="submit" class="btn btn-outline-primary" id="submit">Add task</button>
+                            </div>  
                         </div>
+                        <br>
+                        <div class="container">
+                            <div class="form-group">
+                              <label for="exampleFormControlTextarea1">Message</label>
+                              <textarea class="form-control" rows="3" id="text"></textarea>
+                            </div>
+                          </div>                          
                     </form>
                 </div>
-            </div>
-
-            <div class="input-group">
-                <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-                <button type="button" class="btn btn-outline-primary">search</button>
-              </div>              
-              
+            </div>  
             <div id="list-wrapper">
                 
             </div>    
@@ -118,6 +117,7 @@
                 console.log('Form submitted')
                 var url = 'http://127.0.0.1:8000/todoapp/todo-create/'
                 var title = document.getElementById('title').value
+                var text = document.getElementById('text').value
 
                 fetch(url, {
                     method:'POST',
@@ -125,9 +125,10 @@
                         'Content-type':'application/json',
                         'X-CSRFToken':csrftoken,
                     },
-                    body:JSON.stringify({'title':title})
+                    body:JSON.stringify({'title':title, 'text':text})
                 }).then(function(response){
                     buildList()
+                    document.getElementById('form').reset()
                 })
             })
         </script>
