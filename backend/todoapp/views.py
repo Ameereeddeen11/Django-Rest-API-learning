@@ -19,7 +19,7 @@ def apiOverView(response):
 
 @api_view(['GET'])
 def apiListView(response):
-    todolist = ToDoList.objects.all()
+    todolist = ToDoList.objects.all().order_by('-id')
     serializers = ToDoListSerializers(todolist, many=True)
     return Response(serializers.data)
 
